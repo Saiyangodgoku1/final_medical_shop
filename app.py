@@ -110,62 +110,62 @@ def get_medical_response(prompt):
 def main():
     # Update the sidebar section in main() with this code:
 
-with st.sidebar:
-    st.markdown("""
-    <div style='padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%); border-radius: 10px;'>
-        <h2 style='color: #2980b9; margin-bottom: 20px;'>
-            <span style='display: flex; align-items: center; gap: 10px;'>
-                <img src="https://www.svgrepo.com/show/188290/hospital.svg" style='width: 32px; height: 32px;'/> 
-                <img src="https://www.svgrepo.com/show/306500/robot.svg" style='width: 32px; height: 32px;'/> 
-                MediChat Guide
-            </span>
-        </h2>
-        
-        <div class='info-card'>
-            <h4 style='color: #2980b9;'>
-                <span style='font-size: 20px;'>💊 About This Assistant</span>
-            </h4>
-            <p>Your professional medical information companion</p>
+    with st.sidebar:
+        st.markdown("""
+        <div style='padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%); border-radius: 10px;'>
+            <h2 style='color: #2980b9; margin-bottom: 20px;'>
+                <span style='display: flex; align-items: center; gap: 10px;'>
+                    <img src="https://www.svgrepo.com/show/188290/hospital.svg" style='width: 32px; height: 32px;'/> 
+                    <img src="https://www.svgrepo.com/show/306500/robot.svg" style='width: 32px; height: 32px;'/> 
+                    MediChat Guide
+                </span>
+            </h2>
+            
+            <div class='info-card'>
+                <h4 style='color: #2980b9;'>
+                    <span style='font-size: 20px;'>💊 About This Assistant</span>
+                </h4>
+                <p>Your professional medical information companion</p>
+            </div>
+            
+            <div class='info-card'>
+                <h4 style='color: #2980b9;'>
+                    <span style='font-size: 20px;'>⚕️ Important Notes</span>
+                </h4>
+                <p style='margin-bottom: 0;'>
+                    <span style='display: flex; align-items: center; gap: 8px; margin-bottom: 8px;'>
+                        🏥 Professional medical guidance
+                    </span>
+                    <span style='display: flex; align-items: center; gap: 8px; margin-bottom: 8px;'>
+                        🚑 Emergency services information
+                    </span>
+                    <span style='display: flex; align-items: center; gap: 8px;'>
+                        👨‍⚕️ Healthcare consultation advice
+                    </span>
+                </p>
+            </div>
+            
+            <div class='info-card'>
+                <h4 style='color: #2980b9;'>
+                    <span style='font-size: 20px;'>📋 Available Topics</span>
+                </h4>
+                <p style='margin-bottom: 0;'>
+                    <span style='display: flex; align-items: center; gap: 8px; margin-bottom: 8px;'>
+                        🔍 Medical Information
+                    </span>
+                    <span style='display: flex; align-items: center; gap: 8px; margin-bottom: 8px;'>
+                        🤒 Symptom Guidance
+                    </span>
+                    <span style='display: flex; align-items: center; gap: 8px; margin-bottom: 8px;'>
+                        📚 Health Education
+                    </span>
+                    <span style='display: flex; align-items: center; gap: 8px;'>
+                        💪 Wellness Tips
+                    </span>
+                </p>
+            </div>
         </div>
-        
-        <div class='info-card'>
-            <h4 style='color: #2980b9;'>
-                <span style='font-size: 20px;'>⚕️ Important Notes</span>
-            </h4>
-            <p style='margin-bottom: 0;'>
-                <span style='display: flex; align-items: center; gap: 8px; margin-bottom: 8px;'>
-                    🏥 Professional medical guidance
-                </span>
-                <span style='display: flex; align-items: center; gap: 8px; margin-bottom: 8px;'>
-                    🚑 Emergency services information
-                </span>
-                <span style='display: flex; align-items: center; gap: 8px;'>
-                    👨‍⚕️ Healthcare consultation advice
-                </span>
-            </p>
-        </div>
-        
-        <div class='info-card'>
-            <h4 style='color: #2980b9;'>
-                <span style='font-size: 20px;'>📋 Available Topics</span>
-            </h4>
-            <p style='margin-bottom: 0;'>
-                <span style='display: flex; align-items: center; gap: 8px; margin-bottom: 8px;'>
-                    🔍 Medical Information
-                </span>
-                <span style='display: flex; align-items: center; gap: 8px; margin-bottom: 8px;'>
-                    🤒 Symptom Guidance
-                </span>
-                <span style='display: flex; align-items: center; gap: 8px; margin-bottom: 8px;'>
-                    📚 Health Education
-                </span>
-                <span style='display: flex; align-items: center; gap: 8px;'>
-                    💪 Wellness Tips
-                </span>
-            </p>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
     # Enhanced sidebar
     # Update the sidebar section in main() with this code:
 
