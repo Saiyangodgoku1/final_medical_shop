@@ -11,7 +11,21 @@ st.set_page_config(
     layout="wide"
 )
 
-# Enhanced CSS with beautiful blue gradients and modern styling
+# Initialize session state at the very beginning
+if "conversation_history" not in st.session_state:
+    st.session_state.conversation_history = []
+
+# Configure Gemini API with key from secrets
+try:
+    genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
+    model = genai.GenerativeModel('gemini-1.5-pro')
+    if "chat" not in st.session_state:
+        st.session_state.chat = model.start_chat(history=[])
+except Exception as e:
+    st.error("Please configure GOOGLE_API_KEY in your Streamlit secrets.")
+    st.stop()
+
+# Enhanced CSS (your existing CSS code here)
 st.markdown("""
     <style>
     /* Main app styling */
@@ -65,21 +79,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Configure Gemini API with key from secrets
-try:
-    genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
-    model = genai.GenerativeModel('gemini-1.5-pro')
-except Exception as e:
-    st.error("Please configure GOOGLE_API_KEY in your Streamlit secrets.")
-    st.stop()
-
-def init_session_state():
-    """Initialize session state variables"""
-    if "chat" not in st.session_state:
-        st.session_state.chat = model.start_chat(history=[])
-    if "conversation_history" not in st.session_state:
-        st.session_state.conversation_history = []
-
 def is_medical_question(text):
     """Check if the question is medical-related"""
     medical_keywords = [
@@ -109,53 +108,50 @@ def get_medical_response(prompt):
         return "I apologize, but I encountered an error processing your medical query. Please try rephrasing your question."
 
 def main():
-    init_session_state()
-    
-   # Update the sidebar section in your main() function with this code:
-
-with st.sidebar:
-    st.markdown("""
-    <div style='padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%); border-radius: 10px;'>
-        <h2 style='color: #2980b9; margin-bottom: 20px;'>
-            <span style='font-size: 28px;'>🏥 🤖 MediChat Guide</span>
-        </h2>
-        
-        <div class='info-card'>
-            <h4 style='color: #2980b9;'>
-                <span style='font-size: 20px;'>💊 About This Assistant</span>
-            </h4>
-            <p>Your professional medical information companion</p>
+    # Enhanced sidebar
+    with st.sidebar:
+        st.markdown("""
+        <div style='padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%); border-radius: 10px;'>
+            <h2 style='color: #2980b9; margin-bottom: 20px;'>
+                <span style='font-size: 28px;'>🏥 🤖 MediChat Guide</span>
+            </h2>
+            
+            <div class='info-card'>
+                <h4 style='color: #2980b9;'>
+                    <span style='font-size: 20px;'>💊 About This Assistant</span>
+                </h4>
+                <p>Your professional medical information companion</p>
+            </div>
+            
+            <div class='info-card'>
+                <h4 style='color: #2980b9;'>
+                    <span style='font-size: 20px;'>⚕️ Important Notes</span>
+                </h4>
+                <p>
+                🏨 Professional medical guidance<br>
+                🚑 Emergency services information<br>
+                👨‍⚕️ Healthcare consultation advice
+                </p>
+            </div>
+            
+            <div class='info-card'>
+                <h4 style='color: #2980b9;'>
+                    <span style='font-size: 20px;'>📋 Available Topics</span>
+                </h4>
+                <p>
+                🔍 Medical Information<br>
+                🤒 Symptom Guidance<br>
+                📚 Health Education<br>
+                💪 Wellness Tips
+                </p>
+            </div>
         </div>
-        
-        <div class='info-card'>
-            <h4 style='color: #2980b9;'>
-                <span style='font-size: 20px;'>⚕️ Important Notes</span>
-            </h4>
-            <p>
-            🏨 Professional medical guidance<br>
-            🚑 Emergency services information<br>
-            👨‍⚕️ Healthcare consultation advice
-            </p>
-        </div>
-        
-        <div class='info-card'>
-            <h4 style='color: #2980b9;'>
-                <span style='font-size: 20px;'>📋 Available Topics</span>
-            </h4>
-            <p>
-            🔍 Medical Information<br>
-            🤒 Symptom Guidance<br>
-            📚 Health Education<br>
-            💪 Wellness Tips
-            </p>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
     # Enhanced main interface
     st.markdown("""
         <div class='main-header'>
-            <h1 style='font-size: 2.5rem; margin-bottom: 10px;'>MediChat Assistant</h1>
+            <h1 style='font-size: 2.5rem; margin-bottom: 10px;'>🏥 MediChat Assistant</h1>
             <p style='font-size: 1.2rem; opacity: 0.9;'>Your Trusted Source for Medical Information</p>
         </div>
     """, unsafe_allow_html=True)
@@ -181,7 +177,6 @@ with st.sidebar:
                 st.markdown(f"<div class='assistant-message'>{response}</div>", unsafe_allow_html=True)
                 st.session_state.conversation_history.append({"role": "assistant", "content": response})
 
-                # Add disclaimer for treatment-related queries
                 if any(word in user_input.lower() for word in ['treatment', 'medication', 'medicine']):
                     st.markdown("""
                     <div style='background-color: #fff3cd; color: #856404; padding: 15px; border-radius: 10px; margin-top: 10px;'>
