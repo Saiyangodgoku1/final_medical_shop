@@ -7,8 +7,12 @@ from datetime import datetime
 import re
 
 # Configure Gemini API
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-model = genai.GenerativeModel('gemini-1.5-pro')
+try:
+    genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
+    model = genai.GenerativeModel('gemini-1.5-pro')
+except:
+    st.error("Please configure GOOGLE_API_KEY in your Streamlit secrets.")
+    st.stop()
 
 # Medical keywords and categories for validation
 MEDICAL_KEYWORDS = {
