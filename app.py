@@ -37,43 +37,7 @@ st.markdown("""
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     }
     
-    /* Sidebar styling */
-    .stSidebar {
-        background-color: #f8fafc;
-        border-right: 1px solid #e1e8f0;
-    }
-    
-    /* Chat message styling */
-    .stTextInput input {
-        border-radius: 20px;
-        border: 2px solid #e1e8f0;
-        padding: 10px 20px;
-    }
-    
-    .stTextInput input:focus {
-        border-color: #3498db;
-        box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
-    }
-    
-    /* Custom card styling */
-    .info-card {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        border-left: 4px solid #3498db;
-        margin: 10px 0;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-    
-    /* Gradient text */
-    .gradient-text {
-        background: linear-gradient(90deg, #2980b9, #3498db);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-weight: bold;
-    }
-    
-    /* Message containers */
+    /* Message styling */
     .user-message {
         background-color: #e3f2fd;
         padding: 15px;
@@ -88,10 +52,61 @@ st.markdown("""
         margin: 10px 0;
         border-left: 4px solid #3498db;
     }
+    
+    /* Card styling */
+    .info-card {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        border-left: 4px solid #3498db;
+        margin: 10px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
     </style>
 """, unsafe_allow_html=True)
 
-# Rest of your existing code...
+# Configure Gemini API with key from secrets
+try:
+    genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
+    model = genai.GenerativeModel('gemini-1.5-pro')
+except Exception as e:
+    st.error("Please configure GOOGLE_API_KEY in your Streamlit secrets.")
+    st.stop()
+
+def init_session_state():
+    """Initialize session state variables"""
+    if "chat" not in st.session_state:
+        st.session_state.chat = model.start_chat(history=[])
+    if "conversation_history" not in st.session_state:
+        st.session_state.conversation_history = []
+
+def is_medical_question(text):
+    """Check if the question is medical-related"""
+    medical_keywords = [
+        'symptom', 'pain', 'treatment', 'medicine', 'doctor', 'health',
+        'disease', 'condition', 'medical', 'diagnosis', 'hospital', 'clinic',
+        'prescription', 'therapy', 'healing', 'recovery', 'patient', 'care'
+    ]
+    return any(keyword in text.lower() for keyword in medical_keywords)
+
+def get_medical_response(prompt):
+    """Get response from Gemini API with medical context"""
+    if not is_medical_question(prompt):
+        return "I can only assist with medical and health-related questions. Please ask something related to health, symptoms, treatments, or medical conditions."
+    
+    safety_prompt = f"""As a medical information assistant, please address this health-related query:
+    {prompt}
+    
+    Please note:
+    1. Provide general medical information from reputable sources
+    2. Include relevant health precautions
+    3. Recommend professional consultation when appropriate"""
+    
+    try:
+        response = st.session_state.chat.send_message(safety_prompt)
+        return response.text
+    except Exception as e:
+        return "I apologize, but I encountered an error processing your medical query. Please try rephrasing your question."
 
 def main():
     init_session_state()
@@ -152,6 +167,14 @@ def main():
                 response = get_medical_response(user_input)
                 st.markdown(f"<div class='assistant-message'>{response}</div>", unsafe_allow_html=True)
                 st.session_state.conversation_history.append({"role": "assistant", "content": response})
+
+                # Add disclaimer for treatment-related queries
+                if any(word in user_input.lower() for word in ['treatment', 'medication', 'medicine']):
+                    st.markdown("""
+                    <div style='background-color: #fff3cd; color: #856404; padding: 15px; border-radius: 10px; margin-top: 10px;'>
+                    ⚠️ This information is for educational purposes only. Always consult a healthcare provider before starting or changing any treatment.
+                    </div>
+                    """, unsafe_allow_html=True)
 
     st.markdown("</div>", unsafe_allow_html=True)
 
