@@ -178,69 +178,28 @@ def get_medical_response(prompt):
 def main():
     # Enhanced sidebar
     with st.sidebar:
-        st.markdown("""
-        <div style='padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%); border-radius: 10px;'>
-            <h2 style='color: #2980b9; margin-bottom: 20px;'>
-                <span style='display: flex; align-items: center; gap: 10px;'>
-                    <span style='font-size: 28px;'>🏥 🤖</span>
-                    MediChat Guide
-                </span>
-            </h2>
+        st.title("🏥 🤖 MediChat Guide")
+        
+        col1, = st.columns(1)
+        with col1:
+            # About Section
+            st.markdown("### 💊 About This Assistant")
+            st.write("Your professional medical information companion")
             
-            <div class='info-card'>
-                <h4>
-                    <span style='font-size: 20px;'>💊 About This Assistant</span>
-                </h4>
-                <p>Your professional medical information companion</p>
-            </div>
+            # Important Notes Section
+            st.markdown("### ⚕️ Important Notes")
+            st.markdown("- 🏥 Professional medical guidance")
+            st.markdown("- 🚑 Emergency services information")
+            st.markdown("- 👨‍⚕️ Healthcare consultation advice")
             
-            <div class='info-card'>
-                <h4>
-                    <span style='font-size: 20px;'>⚕️ Important Notes</span>
-                </h4>
-                <p>
-                    <div class='list-item'>
-                        <span class='emoji'>🏥</span>
-                        Professional medical guidance
-                    </div>
-                    <div class='list-item'>
-                        <span class='emoji'>🚑</span>
-                        Emergency services information
-                    </div>
-                    <div class='list-item'>
-                        <span class='emoji'>👨‍⚕️</span>
-                        Healthcare consultation advice
-                    </div>
-                </p>
-            </div>
-            
-            <div class='info-card'>
-                <h4>
-                    <span style='font-size: 20px;'>📋 Available Topics</span>
-                </h4>
-                <p>
-                    <div class='list-item'>
-                        <span class='emoji'>🔍</span>
-                        Medical Information
-                    </div>
-                    <div class='list-item'>
-                        <span class='emoji'>🤒</span>
-                        Symptom Guidance
-                    </div>
-                    <div class='list-item'>
-                        <span class='emoji'>📚</span>
-                        Health Education
-                    </div>
-                    <div class='list-item'>
-                        <span class='emoji'>💪</span>
-                        Wellness Tips
-                    </div>
-                </p>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+            # Available Topics Section
+            st.markdown("### 📋 Available Topics")
+            st.markdown("- 🔍 Medical Information")
+            st.markdown("- 🤒 Symptom Guidance")
+            st.markdown("- 📚 Health Education")
+            st.markdown("- 💪 Wellness Tips")
 
-    # Enhanced main interface
+    # Enhanced main interface (keeping original)
     st.markdown("""
         <div class='main-header'>
             <h1 style='font-size: 2.5rem; margin-bottom: 10px;'>🏥 MediChat Assistant</h1>
@@ -248,7 +207,7 @@ def main():
         </div>
     """, unsafe_allow_html=True)
 
-    # Chat interface
+    # Chat interface (keeping original)
     st.markdown("<div class='chat-container'>", unsafe_allow_html=True)
     
     for message in st.session_state.conversation_history:
@@ -257,7 +216,7 @@ def main():
         else:
             st.markdown(f"<div class='assistant-message'>{message['content']}</div>", unsafe_allow_html=True)
 
-    # User input
+    # User input (keeping original)
     if user_input := st.chat_input("How can I help you with your health questions?"):
         with st.chat_message("user"):
             st.markdown(f"<div class='user-message'>{user_input}</div>", unsafe_allow_html=True)
