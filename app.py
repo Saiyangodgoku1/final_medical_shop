@@ -108,7 +108,6 @@ def get_medical_response(prompt):
         return "I apologize, but I encountered an error processing your medical query. Please try rephrasing your question."
 
 def main():
-    # Enhanced sidebar
     # Update the sidebar section in main() with this code:
 
 with st.sidebar:
@@ -167,13 +166,10 @@ with st.sidebar:
         </div>
     </div>
     """, unsafe_allow_html=True)
-    # Enhanced main interface
-    st.markdown("""
-        <div class='main-header'>
-            <h1 style='font-size: 2.5rem; margin-bottom: 10px;'>🏥 MediChat Assistant</h1>
-            <p style='font-size: 1.2rem; opacity: 0.9;'>Your Trusted Source for Medical Information</p>
-        </div>
-    """, unsafe_allow_html=True)
+    # Enhanced sidebar
+    # Update the sidebar section in main() with this code:
+
+
 
     # Chat interface
     st.markdown("<div class='chat-container'>", unsafe_allow_html=True)
