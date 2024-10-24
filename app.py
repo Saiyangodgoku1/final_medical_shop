@@ -116,10 +116,7 @@ def main():
         - Health education
         """)
         
-        # Add API key input in sidebar
-        api_key = st.text_input("Enter your Google API Key:", type="password")
-        if api_key:
-            os.environ["GOOGLE_API_KEY"] = api_key
+       
             
         # Add medical disclaimer
         st.markdown("---")
