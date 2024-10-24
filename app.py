@@ -111,33 +111,46 @@ def get_medical_response(prompt):
 def main():
     init_session_state()
     
-    # Enhanced sidebar
-    with st.sidebar:
-        st.markdown("""
-        <div style='padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%); border-radius: 10px;'>
-            <h2 style='color: #2980b9; margin-bottom: 20px;'>🏥 MediChat Guide</h2>
-            
-            <div class='info-card'>
-                <h4 style='color: #2980b9;'>About This Assistant</h4>
-                <p>Your professional medical information companion</p>
-            </div>
-            
-            <div class='info-card'>
-                <h4 style='color: #2980b9;'>Important Notes</h4>
-                • Professional medical guidance<br>
-                • Emergency services information<br>
-                • Healthcare consultation advice
-            </div>
-            
-            <div class='info-card'>
-                <h4 style='color: #2980b9;'>Available Topics</h4>
-                • Medical Information<br>
-                • Symptom Guidance<br>
-                • Health Education<br>
-                • Wellness Tips
-            </div>
+   # Update the sidebar section in your main() function with this code:
+
+with st.sidebar:
+    st.markdown("""
+    <div style='padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%); border-radius: 10px;'>
+        <h2 style='color: #2980b9; margin-bottom: 20px;'>
+            <span style='font-size: 28px;'>🏥 🤖 MediChat Guide</span>
+        </h2>
+        
+        <div class='info-card'>
+            <h4 style='color: #2980b9;'>
+                <span style='font-size: 20px;'>💊 About This Assistant</span>
+            </h4>
+            <p>Your professional medical information companion</p>
         </div>
-        """, unsafe_allow_html=True)
+        
+        <div class='info-card'>
+            <h4 style='color: #2980b9;'>
+                <span style='font-size: 20px;'>⚕️ Important Notes</span>
+            </h4>
+            <p>
+            🏨 Professional medical guidance<br>
+            🚑 Emergency services information<br>
+            👨‍⚕️ Healthcare consultation advice
+            </p>
+        </div>
+        
+        <div class='info-card'>
+            <h4 style='color: #2980b9;'>
+                <span style='font-size: 20px;'>📋 Available Topics</span>
+            </h4>
+            <p>
+            🔍 Medical Information<br>
+            🤒 Symptom Guidance<br>
+            📚 Health Education<br>
+            💪 Wellness Tips
+            </p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
     # Enhanced main interface
     st.markdown("""
