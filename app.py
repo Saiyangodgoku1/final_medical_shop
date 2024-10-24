@@ -25,7 +25,7 @@ except Exception as e:
     st.error("Please configure GOOGLE_API_KEY in your Streamlit secrets.")
     st.stop()
 
-# Enhanced CSS (your existing CSS code here)
+# Enhanced CSS
 st.markdown("""
     <style>
     /* Main app styling */
@@ -49,6 +49,7 @@ st.markdown("""
         border-radius: 15px;
         padding: 20px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px;
     }
     
     /* Message styling */
@@ -57,6 +58,7 @@ st.markdown("""
         padding: 15px;
         border-radius: 15px;
         margin: 10px 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     }
     
     .assistant-message {
@@ -65,6 +67,7 @@ st.markdown("""
         border-radius: 15px;
         margin: 10px 0;
         border-left: 4px solid #3498db;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     }
     
     /* Card styling */
@@ -73,8 +76,73 @@ st.markdown("""
         padding: 20px;
         border-radius: 10px;
         border-left: 4px solid #3498db;
-        margin: 10px 0;
+        margin: 15px 0;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .info-card h4 {
+        margin-bottom: 15px;
+        color: #2980b9;
+    }
+    
+    .info-card p {
+        color: #2c3e50;
+        line-height: 1.6;
+        margin-bottom: 0;
+    }
+    
+    /* List item styling */
+    .list-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+        padding: 5px;
+        border-radius: 5px;
+        transition: background-color 0.2s;
+    }
+    
+    .list-item:hover {
+        background-color: #f8fafc;
+    }
+    
+    /* Emoji styling */
+    .emoji {
+        font-size: 1.2em;
+        margin-right: 8px;
+    }
+    
+    /* Input styling */
+    .stTextInput > div > div {
+        background-color: white;
+        border-radius: 10px;
+        border: 2px solid #e1e8f0;
+        padding: 8px 12px;
+    }
+    
+    .stTextInput > div > div:focus-within {
+        border-color: #3498db;
+        box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+    }
+    
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: #c1d3e2;
+        border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: #3498db;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -109,64 +177,68 @@ def get_medical_response(prompt):
 
 def main():
     # Enhanced sidebar
-    # Update the sidebar section in main() with this code:
-
-with st.sidebar:
-    st.markdown("""
-    <div style='padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%); border-radius: 10px;'>
-        <h2 style='color: #2980b9; margin-bottom: 20px;'>
-            <span style='display: flex; align-items: center; gap: 10px;'>
-                <img src="https://www.svgrepo.com/show/188290/hospital.svg" style='width: 32px; height: 32px;'/> 
-                <img src="https://www.svgrepo.com/show/306500/robot.svg" style='width: 32px; height: 32px;'/> 
-                MediChat Guide
-            </span>
-        </h2>
-        
-        <div class='info-card'>
-            <h4 style='color: #2980b9;'>
-                <span style='font-size: 20px;'>💊 About This Assistant</span>
-            </h4>
-            <p>Your professional medical information companion</p>
+    with st.sidebar:
+        st.markdown("""
+        <div style='padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%); border-radius: 10px;'>
+            <h2 style='color: #2980b9; margin-bottom: 20px;'>
+                <span style='display: flex; align-items: center; gap: 10px;'>
+                    <span style='font-size: 28px;'>🏥 🤖</span>
+                    MediChat Guide
+                </span>
+            </h2>
+            
+            <div class='info-card'>
+                <h4>
+                    <span style='font-size: 20px;'>💊 About This Assistant</span>
+                </h4>
+                <p>Your professional medical information companion</p>
+            </div>
+            
+            <div class='info-card'>
+                <h4>
+                    <span style='font-size: 20px;'>⚕️ Important Notes</span>
+                </h4>
+                <p>
+                    <div class='list-item'>
+                        <span class='emoji'>🏥</span>
+                        Professional medical guidance
+                    </div>
+                    <div class='list-item'>
+                        <span class='emoji'>🚑</span>
+                        Emergency services information
+                    </div>
+                    <div class='list-item'>
+                        <span class='emoji'>👨‍⚕️</span>
+                        Healthcare consultation advice
+                    </div>
+                </p>
+            </div>
+            
+            <div class='info-card'>
+                <h4>
+                    <span style='font-size: 20px;'>📋 Available Topics</span>
+                </h4>
+                <p>
+                    <div class='list-item'>
+                        <span class='emoji'>🔍</span>
+                        Medical Information
+                    </div>
+                    <div class='list-item'>
+                        <span class='emoji'>🤒</span>
+                        Symptom Guidance
+                    </div>
+                    <div class='list-item'>
+                        <span class='emoji'>📚</span>
+                        Health Education
+                    </div>
+                    <div class='list-item'>
+                        <span class='emoji'>💪</span>
+                        Wellness Tips
+                    </div>
+                </p>
+            </div>
         </div>
-        
-        <div class='info-card'>
-            <h4 style='color: #2980b9;'>
-                <span style='font-size: 20px;'>⚕️ Important Notes</span>
-            </h4>
-            <p style='margin-bottom: 0;'>
-                <span style='display: flex; align-items: center; gap: 8px; margin-bottom: 8px;'>
-                    🏥 Professional medical guidance
-                </span>
-                <span style='display: flex; align-items: center; gap: 8px; margin-bottom: 8px;'>
-                    🚑 Emergency services information
-                </span>
-                <span style='display: flex; align-items: center; gap: 8px;'>
-                    👨‍⚕️ Healthcare consultation advice
-                </span>
-            </p>
-        </div>
-        
-        <div class='info-card'>
-            <h4 style='color: #2980b9;'>
-                <span style='font-size: 20px;'>📋 Available Topics</span>
-            </h4>
-            <p style='margin-bottom: 0;'>
-                <span style='display: flex; align-items: center; gap: 8px; margin-bottom: 8px;'>
-                    🔍 Medical Information
-                </span>
-                <span style='display: flex; align-items: center; gap: 8px; margin-bottom: 8px;'>
-                    🤒 Symptom Guidance
-                </span>
-                <span style='display: flex; align-items: center; gap: 8px; margin-bottom: 8px;'>
-                    📚 Health Education
-                </span>
-                <span style='display: flex; align-items: center; gap: 8px;'>
-                    💪 Wellness Tips
-                </span>
-            </p>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
     # Enhanced main interface
     st.markdown("""
